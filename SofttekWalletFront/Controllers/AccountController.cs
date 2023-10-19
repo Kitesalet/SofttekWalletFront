@@ -1,5 +1,4 @@
-﻿using BilleteraVirtualSofttekBack.Models.DTOs.Account;
-using Data.Base;
+﻿using Data.Base;
 using Data.DTO.Account;
 using Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -51,60 +50,73 @@ namespace SofttekWalletFront.Controllers
         /// <summary>
         /// Displays a partial view for adding or updating a Account.
         /// </summary>
-        /// <param name="Account">AccountDto</param>
+        /// <param name="account">AccountDto</param>
         /// <returns>A partial view for adding or updating a Account.</returns>
-        public IActionResult AccountsAddPartial(AccountDto Account)
+        public IActionResult AccountsAddPartial(AccountDto account)
         {
-            if (Account.Id != 0)
+
+
+            var accountUpdate = new AccountViewModel()
             {
-
-                Account.Password = "***************";
-
-                var AccountUpdate = new AccountViewModel()
-                {
-                    Email = Account.Email,
-                    Name = Account.Name,
-                    Password = Account.Password,
-                    Id = Account.Id
+                Id = account.Id,
+                AccountNumber = account.AccountNumber,
+                UUID = account.UUID,
+                Alias = account.Alias,
+                Balance = account.Balance,
+                CBU = account.CBU,
+                ClientId = account.ClientId,
+                Type = int.Parse(account.Type)
                 };
 
-                return PartialView("~/Views/Account/Partial/AccountsAddPartial.cshtml", AccountUpdate);
-            }
-            else
-            {
-                var model = new AccountViewModel()
-                {
-
-                };
-                return PartialView("~/Views/Account/Partial/AccountsAddPartial.cshtml", model);
-            }
+                return PartialView("~/Views/Account/Partial/AccountsAddPartial.cshtml", accountUpdate);
+           
         }
 
-        /// <summary>
-        /// Updates a Account with the specified details.
-        /// </summary>
-        /// <param name="Account">AccountUpdateDto</param>
-        /// <returns>Redirects to the Account index.</returns>
-        public IActionResult UpdateAccount(AccountUpdateDto Account)
-        {
-            var token = HttpContext.Session.GetString("Token");
-            var baseApi = new BaseApi(_httpAccount);
 
-            var Accounts = baseApi.PutToApi($"Account/{Account.Id}", Account, token);
+        /// <summary>
+        /// Creates a new Crypto account.
+        /// </summary>
+        /// <param name="Account">AccountCreateDto</param>
+        /// <returns>Redirects to the Account index.</returns>
+        public IActionResult CreateAccountCrypto(AccountCreateDto account)
+        {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            var baseApi = new BaseApi(_httpClient);
+            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
 
             return RedirectToAction("Index");
         }
 
         /// <summary>
-        /// Creates a new Account with the specified details.
+        /// Creates a new Peso account.
         /// </summary>
-        /// <param name="Account">AccountDto.</param>
+        /// <param name="Account">AccountCreateDto</param>
         /// <returns>Redirects to the Account index.</returns>
-        public IActionResult CreateAccount(AccountDto Account)
+        public IActionResult CreateAccountPeso(AccountCreateDto account)
         {
+
             var token = HttpContext.Session.GetString("Token");
-            var baseApi = new BaseApi(_httpAccount);
-            var usuarios = baseApi.PostToApi("Accounts/register", Account, token);
+
+            var baseApi = new BaseApi(_httpClient);
+            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
+
+            return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Creates a new Dollar account.
+        /// </summary>
+        /// <param name="Account">AccountCreateDto</param>
+        /// <returns>Redirects to the Account index.</returns>
+        public IActionResult CreateAccountDollar(AccountCreateDto account)
+        {
+
+            var token = HttpContext.Session.GetString("Token");
+
+            var baseApi = new BaseApi(_httpClient);
+            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
 
             return RedirectToAction("Index");
         }

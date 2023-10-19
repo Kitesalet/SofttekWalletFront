@@ -15,7 +15,7 @@ namespace Data.DTO.Account
         public int CBU { get; set; }
         public string? Alias { get; set; }
         public decimal Balance { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
 
         public int ClientId { get; set; }
 
