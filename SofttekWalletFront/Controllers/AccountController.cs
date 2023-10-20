@@ -88,7 +88,7 @@ namespace SofttekWalletFront.Controllers
 
         }
 
-        public IActionResult Deposit(AccountDto account)
+        public IActionResult AccountDeposit(AccountDto account)
         {
 
 
