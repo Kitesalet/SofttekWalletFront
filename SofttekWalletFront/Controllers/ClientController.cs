@@ -12,7 +12,7 @@ namespace IntegradorSofttekImanolFront.Controllers
     /// <summary>
     /// Represents a controller for managing clients.
     /// </summary>
-    public class ClientsController : Controller
+    public class ClientController : Controller
     {
         private readonly IHttpClientFactory _httpClient;
 
@@ -20,7 +20,7 @@ namespace IntegradorSofttekImanolFront.Controllers
         /// Initializes a new instance of the clientController class.
         /// </summary>
         /// <param name="httpClient">IHttpClientFactory</param>
-        public ClientsController(IHttpClientFactory httpClient)
+        public ClientController(IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;
         }

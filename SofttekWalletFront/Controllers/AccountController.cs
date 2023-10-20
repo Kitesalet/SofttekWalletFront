@@ -10,7 +10,7 @@ namespace SofttekWalletFront.Controllers
     /// <summary>
     /// Represents a controller for managing Accounts.
     /// </summary>
-    public class AccountsController : Controller
+    public class AccountController : Controller
     {
         private readonly IHttpClientFactory _httpClient;
 
@@ -18,7 +18,7 @@ namespace SofttekWalletFront.Controllers
         /// Initializes a new instance of the AccountController class.
         /// </summary>
         /// <param name="httpAccount">IHttpAccountFactory</param>
-        public AccountsController(IHttpClientFactory httpClient)
+        public AccountController(IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;
         }

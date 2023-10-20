@@ -17,5 +17,7 @@ namespace Data.Base
 
         public string Token { get; set; }
 
+        public int Actor { get;set; }
+
     }
 }

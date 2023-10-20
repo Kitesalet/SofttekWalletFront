@@ -1,4 +1,4 @@
-﻿@model Data.Base.Login
+﻿@model Data.ViewModels.HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
     var modele = Model;
@@ -80,6 +80,7 @@
     {
         <text>
             localStorage.setItem('token', '@modele.Token');
+            localStorage.setItem('id', '@modele.Actor')
         </text>
     }
 </script>

@@ -1,14 +1,5 @@
 var token = localStorage.getItem('token');
-
-var decodedToken = parseJwt(token);
-
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-}
-
-var id = decodedToken.nameIdentifier;
+var id = localStorage.getItem('id')
 
 
 let table = new DataTable('#accounts', {
@@ -16,20 +7,22 @@ let table = new DataTable('#accounts', {
     lengthMenu: [1, 5, 10, 20],
     pageLength: 5,
     ajax: {
-
-        url: `https://localhost:7147/api/accounts/id`,
+        url: `https://localhost:7243/api/accounts/${1}`,
         dataSrc: "data",
-        headers: { "Authorization": "Bearer " + token }
+        headers: { "Authorization": "Bearer " + token },
     },
     columns: [
         { data: 'id', title: 'Id' },
+        { data: 'uuid', title: 'UUID' },
+        { data: 'accountNumber', title: 'AccountNumber' },
+        { data: 'cbu', title: 'CBU' },
+        { data: 'alias', title: 'Alias' },
         { data: 'type', title: 'Type' },
-        { data: 'balance', title: 'Balance' },
         {
             data: function (data) {
                 var buttons =
-                    `<td><a href='javascript:DeleteAccount(${JSON.stringify(data)})'><i class="fa-solid fa-trash deleteAccount"></i></a></td>`;
-                    `<td><a href='javascript:AccountInformation(${JSON.stringify(data)})'><i class="fa-solid fa-info m-3 accountInformation"></i>Account Information</a></td>`;
+                    `<td><a href='javascript:UpdateProject(${JSON.stringify(data)})'><i class="fa-solid fa-pen-to-square m-3 updateProject"></i></a></td>` +
+                    `<td><a href='javascript:DeleteProject(${JSON.stringify(data)})'><i class="fa-solid fa-trash deleteProject"></i></a></td>`;
                 return buttons;
             }
         }

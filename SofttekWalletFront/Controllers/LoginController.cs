@@ -72,8 +72,6 @@ namespace IntegradorSofttekImanolFront.Controllers
 
             var resultObject = JsonConvert.DeserializeObject<Login>(loginResult.Value.ToString());
 
-            ViewData["Name"] = resultObject.Name;
-
             var handler = new JwtSecurityTokenHandler();
             var userToken = handler.ReadJwtToken(resultObject.Token);
 
@@ -81,14 +79,13 @@ namespace IntegradorSofttekImanolFront.Controllers
 
             foreach (var claim in userToken.Claims)
             {
-                if (claim.Type == ClaimTypes.Role || claim.Type == ClaimTypes.Name)
-                {
+                
                     claims.Add(claim);
-                }
+                
 
             }
 
-            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Email);
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.NameIdentifier);
 
             identity.AddClaims(claims);
 
@@ -99,11 +96,15 @@ namespace IntegradorSofttekImanolFront.Controllers
                 ExpiresUtc = DateTime.Now.AddHours(1)
             }); ;
 
+            var id = claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Actor);
+
             var homeViewModel = new HomeViewModel();
             homeViewModel.Token = resultObject.Token;
+            homeViewModel.Actor = int.Parse(id.Value);
+            ;
 
             HttpContext.Session.SetString("Token", resultObject.Token);
-            return View("~/Views/Home/Index.cshtml", resultObject);
+            return View("~/Views/Home/Index.cshtml", homeViewModel);
         }
     }
 }
