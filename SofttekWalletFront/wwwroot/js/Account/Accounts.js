@@ -22,16 +22,49 @@ let table = new DataTable('#accounts', {
             }
         },
         {
-            data: function (data) {
+           data: function (data) {
                 var buttons =
-                    `<td><a href='javascript:AccountInformation(${JSON.stringify(data)})'><i class="fa-solid fa-info-circle m-3 accountInformation"></i></a></td>` +
-                    `<td><a href='javascript:DeleteAccount(${JSON.stringify(data)})'><i class="fa-solid fa-trash deleteProject"></i></a></td>`;
+                    `<td><a href='javascript:AccountInformation(${JSON.stringify(data)})'><i class="fa-solid fa-info-circle m-3 text-secondary"></i></a></td>` +
+                    `<td><a href='javascript:DeleteAccount(${JSON.stringify(data)})'><i class="fa-solid fa-trash m-3 text-danger"></i></a></td>` +
+                    `<td><a href='javascript:Withdraw(${JSON.stringify(data)})'><i class="fa-solid fa-arrow-up m-3 text-success"></i></a></td>` +
+                    `<td><a href='javascript:Deposit(${JSON.stringify(data)})'><i class="fa-solid fa-arrow-down m-3 text-danger"></i></a></td>`;
                 return buttons;
-            }
+            },
+            title: 'Basic Operations'
         }
     ]
 });
 
+
+function Deposit(data) {
+
+    $.ajax({
+        type: "GET",
+        url: "DepositPartial",
+        data: data,
+        dataType: "html",
+        success: function (result) {
+            $("#AccountAddPartial").html(result);
+            $('#depositModal').modal('show');
+        }
+    });
+
+}
+
+function Withdraw(data) {
+
+    $.ajax({
+        type: "GET",
+        url: "ExtractPartial",
+        data: data,
+        dataType: "html",
+        success: function (result) {
+            $("#AccountAddPartial").html(result);
+            $('#extractModal').modal('show');
+        }
+    });
+
+}
 
 function DeleteAccount(data) {
     if (window.confirm("Are you sure you want to delete this account?")) {

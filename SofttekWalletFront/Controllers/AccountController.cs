@@ -72,6 +72,67 @@ namespace SofttekWalletFront.Controllers
            
         }
 
+        public IActionResult DepositPartial(AccountDto account)
+        {
+
+
+            var deposit = new AccountViewModel()
+            {
+                Type = account.Type,
+                Balance = 0,
+                Id = account.Id,
+                ClientId= account.ClientId,
+            };
+
+            return PartialView("~/Views/Account/Partial/AccountDeposit.cshtml", deposit);
+
+        }
+
+        public IActionResult Deposit(AccountDto account)
+        {
+
+
+            account.Amount = account.Balance;
+            var token = HttpContext.Session.GetString("Token");
+
+            var baseApi = new BaseApi(_httpClient);
+            var accounts = baseApi.PutToApi($"account/deposit/{account.Id}", account, token);
+
+            return RedirectToAction("Index");
+
+        }
+
+        public IActionResult ExtractPartial(AccountDto account)
+        {
+
+
+            var deposit = new AccountViewModel()
+            {
+                Type = account.Type,
+                Balance = 0,
+                Id = account.Id,
+                ClientId = account.ClientId,
+                
+            };
+
+            return PartialView("~/Views/Account/Partial/AccountExtract.cshtml", deposit);
+
+        }
+
+        public IActionResult AccountExtract(AccountDto account)
+        {
+
+            account.Amount = account.Balance;
+
+            var token = HttpContext.Session.GetString("Token");
+
+            var baseApi = new BaseApi(_httpClient);
+            var accounts = baseApi.PutToApi($"account/extract/{account.Id}", account, token);
+
+            return RedirectToAction("Index");
+
+        }
+
 
         /// <summary>
         /// Creates a new Crypto account.
