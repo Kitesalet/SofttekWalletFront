@@ -52,7 +52,7 @@ namespace SofttekWalletFront.Controllers
         /// </summary>
         /// <param name="account">AccountDto</param>
         /// <returns>A partial view for adding or updating a Account.</returns>
-        public IActionResult AccountsAddPartial(AccountDto account)
+        public IActionResult AccountAddPartial(AccountDto account)
         {
 
 
@@ -65,8 +65,8 @@ namespace SofttekWalletFront.Controllers
                 Balance = account.Balance,
                 CBU = account.CBU,
                 ClientId = account.ClientId,
-                Type = int.Parse(account.Type)
-                };
+                Type = account.Type
+            };
 
                 return PartialView("~/Views/Account/Partial/AccountsAddPartial.cshtml", accountUpdate);
            

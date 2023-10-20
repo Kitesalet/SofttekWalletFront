@@ -13,16 +13,19 @@ let table = new DataTable('#accounts', {
     },
     columns: [
         { data: 'id', title: 'Id' },
-        { data: 'uuid', title: 'UUID' },
-        { data: 'accountNumber', title: 'AccountNumber' },
-        { data: 'cbu', title: 'CBU' },
-        { data: 'alias', title: 'Alias' },
         { data: 'type', title: 'Type' },
+        {
+            data: 'balance',
+            title: 'Balance (in $)',
+            render: function (data) {
+                return '$' + data;
+            }
+        },
         {
             data: function (data) {
                 var buttons =
-                    `<td><a href='javascript:UpdateProject(${JSON.stringify(data)})'><i class="fa-solid fa-pen-to-square m-3 updateProject"></i></a></td>` +
-                    `<td><a href='javascript:DeleteProject(${JSON.stringify(data)})'><i class="fa-solid fa-trash deleteProject"></i></a></td>`;
+                    `<td><a href='javascript:AccountInformation(${JSON.stringify(data)})'><i class="fa-solid fa-info-circle m-3 accountInformation"></i></a></td>` +
+                    `<td><a href='javascript:DeleteAccount(${JSON.stringify(data)})'><i class="fa-solid fa-trash deleteProject"></i></a></td>`;
                 return buttons;
             }
         }
