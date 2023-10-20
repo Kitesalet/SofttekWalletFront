@@ -7,7 +7,7 @@ let table = new DataTable('#accounts', {
     lengthMenu: [1, 5, 10, 20],
     pageLength: 5,
     ajax: {
-        url: `https://localhost:7243/api/accounts/${1}`,
+        url: `https://localhost:7243/api/accounts/${id}`,
         dataSrc: "data",
         headers: { "Authorization": "Bearer " + token },
     },

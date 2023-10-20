@@ -1,15 +1,17 @@
 ﻿<div class="container">
     <h1 class="my-4">Accounts</h1>
 
-    <button class="btn btn-primary mb-3" onclick="AddAccount()">Add an Account</button>
+    <div class="d-flex mb-3">
+        <button class="btn btn-warning" onclick="AddAccount()">Add a Peso Account</button>
+        <button class="btn btn-success ml-2" onclick="AddAccount()">Add a Dollar Account</button>
+        <button class="btn btn-primary ml-2" onclick="AddAccount()">Add a Crypto Account</button>
+    </div>
 
     <div class="table-responsive">
         <table id="accounts" class="table table-striped table-bordered text-center" style="width:100%"></table>
     </div>
 
     <div id="AccountAddPartial"></div>
-
-
 </div>
 
 <script src="~/js/Account/Accounts.js"></script>

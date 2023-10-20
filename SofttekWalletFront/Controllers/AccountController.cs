@@ -84,7 +84,7 @@ namespace SofttekWalletFront.Controllers
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
+            var usuarios = baseApi.PostToApi("account/register", account, token);
 
             return RedirectToAction("Index");
         }
@@ -100,7 +100,7 @@ namespace SofttekWalletFront.Controllers
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
+            var usuarios = baseApi.PostToApi("account/register", account, token);
 
             return RedirectToAction("Index");
         }
@@ -116,7 +116,7 @@ namespace SofttekWalletFront.Controllers
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("Accounts/register", account, token);
+            var usuarios = baseApi.PostToApi("account/register", account, token);
 
             return RedirectToAction("Index");
         }
