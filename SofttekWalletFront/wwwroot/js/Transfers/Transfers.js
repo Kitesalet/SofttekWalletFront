@@ -3,18 +3,8 @@ var id = localStorage.getItem('id');
 
 $(document).ready(function () {
 
-    FillDestinationDropdown();
     FillOriginDropdown();
-
-    $('#transferButton').click(function () {
-
-        var confirmed = confirm("Do you want to complete the transfer?");
-
-        if (confirmed == true) {
-            $('form').submit();
-        }
-    })
-
+    FillDestinationDropdown();
 })
 
 function FillDestinationDropdown() {

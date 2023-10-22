@@ -5,7 +5,7 @@ var id = localStorage.getItem('id')
 let table = new DataTable('#accounts', {
     paging: true,
     lengthMenu: [1, 5, 10, 20],
-    pageLength: 5,
+    pageLength: 10,
     ajax: {
         url: `https://localhost:7243/api/accounts/${id}`,
         dataSrc: "data",
