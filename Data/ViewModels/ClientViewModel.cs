@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Data.Base
+namespace Data.ViewModels
 {
-    public class Login
+    public class ClientViewModel
     {
-
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public string Token { get; set; }
-
-        public int Actor { get;set; }
 
     }
 }

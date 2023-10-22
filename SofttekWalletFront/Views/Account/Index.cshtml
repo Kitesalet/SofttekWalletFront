@@ -1,0 +1,17 @@
+﻿<div class="container">
+    <h1 class="my-4">Accounts</h1>
+
+    <div class="d-flex mb-3">
+        <button class="btn btn-warning m-4" onclick="CreateAccountPeso()">Add a Peso Account</button>
+        <button class="btn btn-success m-4" onclick="CreateAccountDollar()">Add a Dollar Account</button>
+        <button class="btn btn-primary m-4" onclick="CreateAccountCrypto()">Add a Crypto Account</button>
+    </div>
+
+    <div class="table-responsive">
+        <table id="accounts" class="table table-striped table-bordered text-center" style="width:100%"></table>
+    </div>
+
+    <div id="AccountAddPartial"></div>
+</div>
+
+<script src="~/js/Account/Accounts.js"></script>
