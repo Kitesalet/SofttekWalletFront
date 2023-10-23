@@ -48,7 +48,9 @@ namespace SofttekWalletFront.Controllers
 
             var response = await baseApi.DeleteToApi($"account/{id}", new { id = id }, token);
 
-            return CreateResult(response);
+            var objectResponse = response as ObjectResult;
+
+            return CreateResult(objectResponse);
         }
 
  
@@ -104,7 +106,6 @@ namespace SofttekWalletFront.Controllers
             var baseApi = new BaseApi(_httpClient);
             var response = await baseApi.PutToApi($"account/deposit/{account.Id}", account, token);
             var objectResponse = response as ObjectResult;
-
 
             return CreateResult(objectResponse);
 
@@ -205,21 +206,20 @@ namespace SofttekWalletFront.Controllers
 
         public IActionResult CreateResult(ObjectResult objResponse)
         {
+            
+            if(objResponse.StatusCode == 200 || objResponse.StatusCode == 201)
+            {
+                ApiResponse jsonbject = JsonConvert.DeserializeObject<ApiResponse>(objResponse.Value.ToString());
 
-            var jsonObject = JsonConvert.DeserializeObject<ApiResponse>(objResponse.Value.ToString());
+                return Ok(jsonbject.Data);
+            }
 
-            if (jsonObject.StatusCode == (int)HttpStatusCode.OK)
-            {
-                return Ok(jsonObject.Data);
-            }
-            else if (jsonObject.StatusCode == (int)HttpStatusCode.Unauthorized)
-            {
-                return Unauthorized();
-            }
-            else
-            {
-                return BadRequest("An error occurred.");
-            }
+            var objResponseer = objResponse.Value.ToString();
+            var jsonObject = JsonConvert.DeserializeObject<ApiErrorResponse>(objResponse.Value.ToString());
+
+            return BadRequest(jsonObject.Errors[0].Error);
+
+
         }
     }
 }

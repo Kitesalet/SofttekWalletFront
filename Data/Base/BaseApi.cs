@@ -34,14 +34,16 @@ namespace Data.Base
                 }
 
                 var response = await client.DeleteAsync(controllerName);
+                var content = await response.Content.ReadAsStringAsync();
+
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
                     return Ok(content);
                 }
 
-                return Unauthorized();
+
+                return BadRequest(content);
             }
             catch (Exception ex)
             {
@@ -65,14 +67,15 @@ namespace Data.Base
                 }
 
                 var response = await client.PutAsJsonAsync(controllerName, model);
+                var content = await response.Content.ReadAsStringAsync();
+
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
                     return Ok(content);
                 }
 
-                return Unauthorized();
+                return BadRequest(content);
             }
             catch (Exception ex)
             {
@@ -96,14 +99,14 @@ namespace Data.Base
                 }
 
                 var response = await client.PostAsJsonAsync(controllerName, model);
+                var content = await response.Content.ReadAsStringAsync();
 
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
                     return Ok(content);
                 }
 
-                return Unauthorized();
+                return BadRequest(content);
             }
             catch (Exception ex)
             {

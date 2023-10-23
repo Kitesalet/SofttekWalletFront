@@ -51,6 +51,36 @@ function Deposit(data) {
 
 }
 
+function DepositHandler() {
+    Swal.fire({
+        title: 'You will make a deposit!',
+        text: 'Do you want to proceed with the deposit?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('depositForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'AccountDeposit',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText , 'error');
+                }
+            });
+        }
+    });
+}
+
 function Withdraw(data) {
 
     $.ajax({
@@ -66,6 +96,35 @@ function Withdraw(data) {
 
 }
 
+function ExtractHandler() {
+    Swal.fire({
+        title: 'You will make a withdraw!',
+        text: 'Do you want to proceed with the withdraw?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('extractForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'AccountExtract',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText, 'error');
+                }
+            });
+        }
+    });
+}
 function DeleteAccount(data) {
     Swal.fire({
         title: 'You will delete this account forever!',
@@ -85,10 +144,10 @@ function DeleteAccount(data) {
                     Swal.fire('Success', `${response} Page will reload...`, 'success');
                     setTimeout(function () {
                         location.reload();
-                    }, 2000);
+                    }, 1000);
                 },
-                error: function () {
-                    Swal.fire('Error', 'Failed to delete the account', 'error');
+                error: function (response) {
+                    Swal.fire('Error', response , 'error');
                 }
             });
         } else {
@@ -120,13 +179,13 @@ function CreateAccountDollar() {
                     Swal.fire('Success', `${response} Page will reload`, 'success');
                     setTimeout(function () {
                         location.reload();
-                    }, 3000);
+                    }, 1000);
                 },
                 error: function (response) { 
                     Swal.fire('Error', 'Failed to create Dollar account', 'error');
                     setTimeout(function () {
                         location.reload();
-                    }, 1600);
+                    }, 1000);
                 }
             });
         } else {
@@ -146,7 +205,7 @@ function CreateAccountCrypto() {
         if (result.isConfirmed) {
             var data = {
                 ClientId: id,
-                Type: 2
+                Type: 3
             };
             $.ajax({
                 type: 'GET',
@@ -157,13 +216,13 @@ function CreateAccountCrypto() {
                     Swal.fire('Success', `${response} Page will reload`, 'success');
                     setTimeout(function () {
                         location.reload();
-                    }, 1600);
+                    }, 1000);
                 },
                 error: function (response) {
                     Swal.fire('Error', 'Failed to create Crypto account', 'error');
                     setTimeout(function () {
                         location.reload();
-                    }, 2000);
+                    }, 1000);
                 }
             });
         } else {
@@ -184,7 +243,7 @@ function CreateAccountPeso() {
         if (result.isConfirmed) {
             var data = {
                 ClientId: id,
-                Type: 2
+                Type: 1
             };
             $.ajax({
                 type: 'GET',
@@ -195,13 +254,13 @@ function CreateAccountPeso() {
                     Swal.fire('Success', `${response} Page will reload`, 'success');
                     setTimeout(function () {
                         location.reload();
-                    }, 3000);
+                    }, 1000);
                 },
                 error: function (response) {
                     Swal.fire('Error', 'Failed to create Peso account', 'error');
                     setTimeout(function () {
                         location.reload();
-                    }, 1600);
+                    }, 1000);
                 }
             });
         } else {
