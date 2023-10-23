@@ -4,7 +4,9 @@ using Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Net;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace SofttekWalletFront.Controllers
 {
@@ -39,15 +41,17 @@ namespace SofttekWalletFront.Controllers
         /// </summary>
         /// <param name="id">An int.</param>
         /// <returns>Redirects to the Account index.</returns>
-        public IActionResult DeleteAccount(int id)
+        public async Task<IActionResult> DeleteAccount(int id)
         {
             var token = HttpContext.Session.GetString("Token");
             var baseApi = new BaseApi(_httpClient);
 
-            var usuarios = baseApi.DeleteToApi($"account/{id}", new { id = id }, token);
+            var response = await baseApi.DeleteToApi($"account/{id}", new { id = id }, token);
 
-            return RedirectToAction("Index");
+            return CreateResult(response);
         }
+
+ 
 
         /// <summary>
         /// Displays a partial view for adding or updating a Account.
@@ -90,7 +94,7 @@ namespace SofttekWalletFront.Controllers
 
         }
 
-        public IActionResult AccountDeposit(AccountDto account)
+        public async Task<IActionResult> AccountDeposit(AccountDto account)
         {
 
 
@@ -98,9 +102,12 @@ namespace SofttekWalletFront.Controllers
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var accounts = baseApi.PutToApi($"account/deposit/{account.Id}", account, token);
+            var response = await baseApi.PutToApi($"account/deposit/{account.Id}", account, token);
+            var objectResponse = response as ObjectResult;
 
-            return RedirectToAction("Index");
+
+            return CreateResult(objectResponse);
+
 
         }
 
@@ -121,7 +128,7 @@ namespace SofttekWalletFront.Controllers
 
         }
 
-        public IActionResult AccountExtract(AccountDto account)
+        public async Task<IActionResult> AccountExtract(AccountDto account)
         {
 
             account.Amount = account.Balance;
@@ -129,9 +136,11 @@ namespace SofttekWalletFront.Controllers
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var accounts = baseApi.PutToApi($"account/extract/{account.Id}", account, token);
+            var response = await baseApi.PutToApi($"account/extract/{account.Id}", account, token);
+            var objectResponse = response as ObjectResult;
 
-            return RedirectToAction("Index");
+            return CreateResult(objectResponse);
+
 
         }
 
@@ -141,15 +150,18 @@ namespace SofttekWalletFront.Controllers
         /// </summary>
         /// <param name="Account">AccountCreateDto</param>
         /// <returns>Redirects to the Account index.</returns>
-        public IActionResult CreateAccountCrypto(AccountCreateDto account)
+        public async Task<IActionResult> CreateAccountCrypto(AccountCreateDto account)
         {
 
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("account/register", account, token);
+            var response = await baseApi.PostToApi("account/register", account, token);
 
-            return RedirectToAction("Index");
+            var objectResponse = response as ObjectResult;
+
+            return CreateResult(objectResponse);
+
         }
 
         /// <summary>
@@ -157,15 +169,18 @@ namespace SofttekWalletFront.Controllers
         /// </summary>
         /// <param name="Account">AccountCreateDto</param>
         /// <returns>Redirects to the Account index.</returns>
-        public IActionResult CreateAccountPeso(AccountCreateDto account)
+        public async Task<IActionResult> CreateAccountPeso(AccountCreateDto account)
         {
 
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("account/register", account, token);
+            var response = await baseApi.PostToApi("account/register", account, token);
 
-            return RedirectToAction("Index");
+            var objectResponse = response as ObjectResult;
+
+            return CreateResult(objectResponse);
+
         }
 
         /// <summary>
@@ -182,9 +197,29 @@ namespace SofttekWalletFront.Controllers
             var response = await baseApi.PostToApi("account/register", account, token);
 
             var objectResponse = response as ObjectResult;
-            var jsonData = JsonConvert.DeserializeObject<ApiResponse>(objectResponse.Value.ToString());
 
-            return Ok(jsonData.Data);
+            return CreateResult(objectResponse);
+        }
+
+
+
+        public IActionResult CreateResult(ObjectResult objResponse)
+        {
+
+            var jsonObject = JsonConvert.DeserializeObject<ApiResponse>(objResponse.Value.ToString());
+
+            if (jsonObject.StatusCode == (int)HttpStatusCode.OK)
+            {
+                return Ok(jsonObject.Data);
+            }
+            else if (jsonObject.StatusCode == (int)HttpStatusCode.Unauthorized)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                return BadRequest("An error occurred.");
+            }
         }
     }
 }
