@@ -51,6 +51,36 @@ function Deposit(data) {
 
 }
 
+function DepositHandler() {
+    Swal.fire({
+        title: 'You will make a deposit!',
+        text: 'Do you want to proceed with the deposit?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('depositForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'AccountDeposit',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText , 'error');
+                }
+            });
+        }
+    });
+}
+
 function Withdraw(data) {
 
     $.ajax({
@@ -66,82 +96,177 @@ function Withdraw(data) {
 
 }
 
+function ExtractHandler() {
+    Swal.fire({
+        title: 'You will make a withdraw!',
+        text: 'Do you want to proceed with the withdraw?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('extractForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'AccountExtract',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText, 'error');
+                }
+            });
+        }
+    });
+}
 function DeleteAccount(data) {
-    if (window.confirm("Are you sure you want to delete this account?")) {
-        $.ajax({
-            type: "GET",
-            url: "DeleteAccount",
-            data: data,
-            'dataType': "html",
-            success: function (result) {
-                location.reload()
-            },
-        })
-    } else {
-        alert("The account wasnt deleted!")
-    }
-
+    Swal.fire({
+        title: 'You will delete this account forever!',
+        text: 'Do you want to delete this account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: 'GET',
+                url: 'DeleteAccount',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload...`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response , 'error');
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The account was not deleted', 'info');
+        }
+    });
 }
 
-function CreateAccountDollar(data) {
-    if (window.confirm("Are you sure you want to create a Dollar Account?")) {
-        var data = {
-            ClientId: id,
-            Type: 2
-        };
-        $.ajax({
-            type: "GET",
-            url: "CreateAccountDollar",
-            data: data,
-            'dataType': "html",
-            success: function (result) {
-                location.reload()
-            },
-        })
-    } else {
-        alert("The Dollar account wasnt created!")
-    }
-
+function CreateAccountDollar() {
+    Swal.fire({
+        title: 'You will create an account',
+        text: 'Do you want to create a Dollar Account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                ClientId: id,
+                Type: 2
+            };
+            $.ajax({
+                type: 'GET',
+                url: 'CreateAccountDollar',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) { 
+                    Swal.fire('Error', 'Failed to create Dollar account', 'error');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The Dollar account was not created', 'info');
+        }
+    });
 }
-
 function CreateAccountCrypto() {
-    if (window.confirm("Are you sure you want to create a Crypto Account?")) {
-        var data = {
-            ClientId: id,
-            Type: 3
-        };
-        $.ajax({
-            type: "GET",
-            url: "CreateAccountCrypto",
-            data: data,
-            dataType: "html",
-            success: function (result) {
-                location.reload();
-            },
-        });
-    } else {
-        alert("The Crypto account wasn't created!");
-    }
+    Swal.fire({
+        title: 'You will create an account',
+        text: 'Do you want to create a Crypto Account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                ClientId: id,
+                Type: 3
+            };
+            $.ajax({
+                type: 'GET',
+                url: 'CreateAccountCrypto',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', 'Failed to create Crypto account', 'error');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The Crypto account was not created', 'info');
+        }
+    });
 }
 
 function CreateAccountPeso() {
-    if (window.confirm("Are you sure you want to create a Peso Account?")) {
-        var data = {
-            ClientId: id,
-            Type: 1
-        };
-        $.ajax({
-            type: "GET",
-            url: "CreateAccountPeso",
-            data: data,
-            dataType: "html",
-            success: function (result) {
-                location.reload();
-            },
-        });
-    } else {
-        alert("The Peso account wasn't created!");
-    }
+    Swal.fire({
+        title: 'You will create an account',
+        text: 'Do you want to create a Peso Account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                ClientId: id,
+                Type: 1
+            };
+            $.ajax({
+                type: 'GET',
+                url: 'CreateAccountPeso',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', 'Failed to create Peso account', 'error');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The Peso account was not created', 'info');
+        }
+    });
 }
 
 function AccountInformation(data) {

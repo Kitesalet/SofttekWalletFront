@@ -39,6 +39,10 @@ function FillDestinationDropdown() {
     }
     )
 }
+
+function TransferSubmitHabdler() {
+
+}
 function FillOriginDropdown() {
     $.ajax({
         url: `https://localhost:7243/api/accounts/${id}`,

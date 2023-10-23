@@ -8,7 +8,7 @@
             </div>
 
 
-            @using (Html.BeginForm("AccountDeposit", "/Account", FormMethod.Post))
+            @using (Html.BeginForm("AccountDeposit", "/Account", FormMethod.Post , new {id = "depositForm"}))
             {
                 @if (Model.Type == "Crypto")
                 {
@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" id="btnGuardar">Accept Deposit</button>
+                    <button type="button" class="btn btn-success" onclick="DepositHandler()">Accept Deposit</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             }

@@ -38,12 +38,12 @@
 
         <div class="form-group">
             @Html.LabelFor(x => x.Concept)
-            @Html.TextAreaFor(x => x.Concept, new { @class = "form-control", @rows = 3 })
+            @Html.TextAreaFor(x => x.Concept, new { @class = "form-control", @rows = 3,  required = "required" })
         </div>
 
         <hr />
 
-        <button type="button" class="btn btn-success" id="transferButton">Accept Transaction</button>
+        <button type="submit" class="btn btn-success" id="transferButton">Accept Transaction</button>
     }
     
 
