@@ -83,45 +83,79 @@ function DeleteAccount(data) {
 
 }
 
-function CreateAccountDollar(data) {
-    if (window.confirm("Are you sure you want to create a Dollar Account?")) {
-        var data = {
-            ClientId: id,
-            Type: 2
-        };
-        $.ajax({
-            type: "GET",
-            url: "CreateAccountDollar",
-            data: data,
-            'dataType': "html",
-            success: function (result) {
-                location.reload()
-            },
-        })
-    } else {
-        alert("The Dollar account wasnt created!")
-    }
-
+function CreateAccountDollar() {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to create a Dollar Account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                ClientId: id,
+                Type: 2
+            };
+            $.ajax({
+                type: 'GET',
+                url: 'CreateAccountDollar',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                },
+                error: function (response) { 
+                    Swal.fire('Error', 'Failed to create Dollar account', 'error');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The Dollar account was not created', 'info');
+        }
+    });
 }
-
 function CreateAccountCrypto() {
-    if (window.confirm("Are you sure you want to create a Crypto Account?")) {
-        var data = {
-            ClientId: id,
-            Type: 3
-        };
-        $.ajax({
-            type: "GET",
-            url: "CreateAccountCrypto",
-            data: data,
-            dataType: "html",
-            success: function (result) {
-                location.reload();
-            },
-        });
-    } else {
-        alert("The Crypto account wasn't created!");
-    }
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to create a Crypto Account?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var data = {
+                ClientId: id,
+                Type: 2
+            };
+            $.ajax({
+                type: 'GET',
+                url: 'CreateAccountCrypto',
+                data: data,
+                dataType: 'html',
+                success: function (response) {
+                    Swal.fire('Success', `${response} Page will reload`, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 3000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', 'Failed to create Dollar account', 'error');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                }
+            });
+        } else {
+            Swal.fire('Cancelled', 'The Dollar account was not created', 'info');
+        }
+    });
 }
 
 function CreateAccountPeso() {

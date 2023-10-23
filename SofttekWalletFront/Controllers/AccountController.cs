@@ -3,6 +3,8 @@ using Data.DTO.Account;
 using Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace SofttekWalletFront.Controllers
 {
@@ -171,15 +173,18 @@ namespace SofttekWalletFront.Controllers
         /// </summary>
         /// <param name="Account">AccountCreateDto</param>
         /// <returns>Redirects to the Account index.</returns>
-        public IActionResult CreateAccountDollar(AccountCreateDto account)
+        public async Task<IActionResult> CreateAccountDollar(AccountCreateDto account)
         {
 
             var token = HttpContext.Session.GetString("Token");
 
             var baseApi = new BaseApi(_httpClient);
-            var usuarios = baseApi.PostToApi("account/register", account, token);
+            var response = await baseApi.PostToApi("account/register", account, token);
 
-            return RedirectToAction("Index");
+            var objectResponse = response as ObjectResult;
+            var jsonData = JsonConvert.DeserializeObject<ApiResponse>(objectResponse.Value.ToString());
+
+            return Ok(jsonData.Data);
         }
     }
 }

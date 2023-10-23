@@ -27,6 +27,7 @@ namespace SofttekWalletFront.Controllers
 
             string token = HttpContext.Session.GetString("Token");
 
+
             BaseApi api = new BaseApi(_httpClient);
 
             var transfer = api.PutToApi("account/transfer", dto, token);

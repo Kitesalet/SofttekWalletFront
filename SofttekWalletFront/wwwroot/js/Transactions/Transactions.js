@@ -8,7 +8,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
         pageLength: 10,
         ajax: {
 
-            url: `https://localhost:7243/api/transactions/account/${0}`,
+            url: `https://localhost:7243/api/transactions`,
             dataSrc: "data",
             headers: { "Authorization": "Bearer " + token }
         },
