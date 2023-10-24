@@ -5,6 +5,8 @@ using Data.DTO.Client;
 using Data.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace IntegradorSofttekImanolFront.Controllers
 {
@@ -29,9 +31,27 @@ namespace IntegradorSofttekImanolFront.Controllers
         /// Displays the client index view.
         /// </summary>
         /// <returns>The client index view.</returns>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            var token = HttpContext.Session.GetString("Token");
+            var id = HttpContext.Session.GetString("Client");
+            var baseApi = new BaseApi(_httpClient);
+
+            var response = await baseApi.GetToApi($"client/{id}", new {id = id }, token);
+
+            var objectResponse = response as ObjectResult;
+
+            ApiClientResponse responseDeserialized = JsonConvert.DeserializeObject<ApiClientResponse>(objectResponse.Value.ToString());
+
+            ClientViewModel model = new ClientViewModel()
+            {
+                Email = responseDeserialized.Data.Email,
+                Id = responseDeserialized.Data.Id,
+                Name = responseDeserialized.Data.Name
+            };
+
+            return View(model);
         }
 
         /// <summary>

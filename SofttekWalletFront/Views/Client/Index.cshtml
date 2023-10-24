@@ -1,13 +1,37 @@
-﻿<div class="container">
-    <h1 class="my-4">Clients</h1>
+﻿@model Data.ViewModels.ClientViewModel
 
-    <button class="btn btn-primary mb-3" onclick="AddClient()">Add Client</button>
-
-    <div class="table-responsive">
-        <table id="clients" class="table table-striped table-bordered text-center" style="width:100%"></table>
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-body">
+            <h1 class="card-title text-center my-4">User Details</h1>
+            <h3 class="card-subtitle text-center text-success">Your user details</h3>
+        </div>
     </div>
-
-    <div id="ClientsAddPartial"></div>
 </div>
 
-<script src="~/js/Clients/Clients.js"></script>
+<div class="container d-flex justify-content-center mt-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="form-group">
+                <label for="Id">
+                    <i class="fas fa-user text-success"></i> User ID
+                </label>
+                <h3 class="text-center">@Model.Id</h3>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="Email">
+                    <i class="fas fa-envelope text-warning"></i> Email
+                </label>
+                <h3 class="text-center">@Model.Email</h3>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label for="Name">
+                    <i class="fas fa-user-circle text-primary"></i> Name
+                </label>
+                <h3 class="text-center">@Model.Name</h3>
+            </div>
+        </div>
+    </div>
+</div>

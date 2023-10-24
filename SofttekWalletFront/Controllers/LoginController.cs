@@ -161,6 +161,7 @@ namespace IntegradorSofttekImanolFront.Controllers
             ;
 
             HttpContext.Session.SetString("Token", resultObject.Token);
+            HttpContext.Session.SetString("Client", id.Value.ToString());
             return View("~/Views/Home/Index.cshtml", homeViewModel);
         }
     }
