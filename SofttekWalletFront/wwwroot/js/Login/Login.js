@@ -1,4 +1,35 @@
-(function($) {
+
+function RegisterHandler() {
+    Swal.fire({
+        title: 'You will register a user',
+        text: 'Do you want to proceed with the registration?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('registerForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'CreateClient',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response + ' Going back to the login screen...', 'success');
+                    setTimeout(function () {
+                        window.location.href = 'https://localhost:7071/'; 
+                    }, 2000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText, 'error');
+                }
+            });
+        }
+    });
+}
+
+(function ($) {
 
 	"use strict";
 

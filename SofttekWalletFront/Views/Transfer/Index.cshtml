@@ -10,7 +10,7 @@
 
     <hr />
 
-    @using (Html.BeginForm("BeginTransaction", "Transfer", FormMethod.Post))
+    @using (Html.BeginForm("BeginTransaction", "Transfer", FormMethod.Post, new { id = "transferForm" }))
     {
         <div class="form-group">
             Origin Account
@@ -31,19 +31,28 @@
 
         <div class="form-group">
             @Html.LabelFor(x => x.Amount)
-            @Html.EditorFor(x => x.Amount, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.EditorFor(x => x.Amount, new { htmlAttributes = new { @class = "form-control", min = "0", required = "required" } })
         </div>
 
         <hr />
 
         <div class="form-group">
             @Html.LabelFor(x => x.Concept)
-            @Html.TextAreaFor(x => x.Concept, new { @class = "form-control", @rows = 3,  required = "required" })
+            @Html.DropDownListFor(x => x.Concept, new SelectList(
+        new List<SelectListItem>
+        {
+        new SelectListItem { Text = "Banking", Value = "Banking" },
+        new SelectListItem { Text = "Loans", Value = "Loans" },
+        new SelectListItem { Text = "Various", Value = "Various" },
+        new SelectListItem { Text = "Rent", Value = "Rent" },
+        new SelectListItem { Text = "Gambling", Value = "Gambling" },
+        new SelectListItem { Text = "Payment", Value = "Payment" }
+        }, "Value", "Text"), new { @class = "form-control" })
         </div>
 
         <hr />
 
-        <button type="submit" class="btn btn-success" id="transferButton">Accept Transaction</button>
+        <button type="button" class="btn btn-success form-control" id="submitButton">Accept Transfer</button>
     }
     
 

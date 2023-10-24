@@ -8,19 +8,64 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
         pageLength: 10,
         ajax: {
 
-            url: `https://localhost:7243/api/transactions`,
+            url: `https://localhost:7243/api/transactions?page=1&units=999999999`,
             dataSrc: "data",
             headers: { "Authorization": "Bearer " + token }
         },
-        columns: [
-            { data: 'type', title: 'Type' },
-            { data: 'concept', title: 'Concept' },
-            { data: 'amount', title: 'Amount' },
-            { data: 'sourceAccount.cbu', title: 'Source CBU(If Fiduciary)' },
-            { data: 'sourceAccount.uuid', title: 'Source UUID(If Crypto)' },
-            { data: 'destinationAccount.cbu', title: 'Destination CBU (If Fiduciary)' },
-            { data: 'destinationAccount.uuid', title: 'Destination UUID (If Crypto)' },
-            { data: 'createdDate', title: 'Created Date' }
+            columns: [
+                { data: 'type', title: 'Type' },
+                {
+                    data: 'concept',
+                    title: 'concept',
+                    render: function (data, type) {
+                        if (type === 'display' && data === '') {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                { data: 'amount', title: 'Origin Amount' },
+                {
+                    data: 'sourceAccount.cbu',
+                    title: 'Source CBU(If Fiduciary)',
+                    render: function (data, type) {
+                        if (type === 'display' && data === 0) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'sourceAccount.uuid',
+                    title: 'Source UUID',
+                    render: function (data, type) {
+                        if (type === 'display' && data === null) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'destinationAccount.cbu',
+                    title: 'Destination CBU (If Fiduciary)',
+                    render: function (data, type) {
+                        if (type === 'display' && data === 0) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'destinationAccount.uuid',
+                    title: 'Destination UUID',
+                    render: function (data, type) {
+                        if (type === 'display' && data === null) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                { data: 'createdDate', title: 'Created Date' }
 
         ]
     });
@@ -54,12 +99,22 @@ function FilterByAccount(account) {
                         return data;
                     }
                 },
-                { data: 'amount', title: 'Amount' },
+                { data: 'amount', title: 'Origin Amount' },
                 {
                     data: 'sourceAccount.cbu',
                     title: 'Source CBU(If Fiduciary)',
                     render: function (data, type) {
                         if (type === 'display' && data === 0) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'sourceAccount.uuid',
+                    title: 'Source UUID',
+                    render: function (data, type) {
+                        if (type === 'display' && data === null) {
                             return '-';
                         }
                         return data;
@@ -76,18 +131,8 @@ function FilterByAccount(account) {
                     }
                 },
                 {
-                    data: 'sourceAccount.uuid',
-                    title: 'Source CBU(If Fiduciary)',
-                    render: function (data, type) {
-                        if (type === 'display' && data === null) {
-                            return '-';
-                        }
-                        return data;
-                    }
-                },
-                {
                     data: 'destinationAccount.uuid',
-                    title: 'Destination CBU (If Fiduciary)',
+                    title: 'Destination UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';

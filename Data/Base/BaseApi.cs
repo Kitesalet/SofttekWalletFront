@@ -66,6 +66,8 @@ namespace Data.Base
 
                 }
 
+
+
                 var response = await client.PutAsJsonAsync(controllerName, model);
                 var content = await response.Content.ReadAsStringAsync();
 

@@ -1,5 +1,6 @@
 ﻿using Data.Base;
 using Data.DTO;
+using Data.DTO.Client;
 using Data.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -47,16 +48,72 @@ namespace IntegradorSofttekImanolFront.Controllers
             return RedirectToAction("Login", "Login");
         }
 
-        /// <summary>
-        /// User login by POSTing loginDto to an API.
-        /// </summary>
-        /// <param name="login">LoginDto</param>
-        /// <returns>
-        /// If successful, redirects to the home page with a user token.
-        /// |
-        /// redirects to the login page with an error message.
-        /// </returns>
-        public async Task<IActionResult> Ingresar(LoginDto login)
+    
+			/// <summary>
+			/// Displays a partial view for adding or updating a client.
+			/// </summary>
+			/// <param name="client">ClientDto</param>
+			/// <returns>A partial view for adding or updating a client.</returns>
+			public IActionResult Register(ClientDto client)
+			{
+
+					var model = new ClientViewModel()
+					{
+
+					};
+					return PartialView("~/Views/Login/Partial/Register.cshtml", model);
+				
+			}
+
+		/// <summary>
+		/// Creates a new client with the specified details.
+		/// </summary>
+		/// <param name="client">ClientDto.</param>
+		/// <returns>Redirects to the client index.</returns>
+		public async Task<IActionResult> CreateClient(ClientDto client)
+		{
+            if(client.Name == null)
+            {
+                client.Name = "";
+            }
+            if (client.Password == null)
+            {
+                client.Password = "";
+            }
+            if(client.Email == null)
+            {
+                client.Email = "";
+            }
+
+			var token = HttpContext.Session.GetString("Token");
+			var baseApi = new BaseApi(_httpClient);
+			var response = await baseApi.PostToApi("client/register", client, token);
+            var objResponse = response as ObjectResult;
+
+			if (objResponse.StatusCode == 200 || objResponse.StatusCode == 201)
+			{
+				ApiResponse jsonbject = JsonConvert.DeserializeObject<ApiResponse>(objResponse.Value.ToString());
+
+				return Ok(jsonbject.Data);
+			}
+
+			var objResponseer = objResponse.Value.ToString();
+			var jsonObject = JsonConvert.DeserializeObject<ApiErrorResponse>(objResponse.Value.ToString());
+
+			return BadRequest(jsonObject.Errors[0].Error);
+
+		}
+
+		/// <summary>
+		/// User login by POSTing loginDto to an API.
+		/// </summary>
+		/// <param name="login">LoginDto</param>
+		/// <returns>
+		/// If successful, redirects to the home page with a user token.
+		/// |
+		/// redirects to the login page with an error message.
+		/// </returns>
+		public async Task<IActionResult> Ingresar(LoginDto login)
         {
             var baseApi = new BaseApi(_httpClient);
 
