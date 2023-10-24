@@ -110,7 +110,7 @@ function ExtractHandler() {
 
             $.ajax({
                 type: 'POST',
-                url: 'BeginTransaction',
+                url: 'AccountExtract',
                 data: $(form).serialize(),
                 success: function (response) {
                     Swal.fire('Success', response, 'success');

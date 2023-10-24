@@ -38,7 +38,16 @@
 
         <div class="form-group">
             @Html.LabelFor(x => x.Concept)
-            @Html.TextAreaFor(x => x.Concept, new { @class = "form-control", @rows = 3,  required = "required" })
+            @Html.DropDownListFor(x => x.Concept, new SelectList(
+        new List<SelectListItem>
+        {
+        new SelectListItem { Text = "Banking", Value = "Banking" },
+        new SelectListItem { Text = "Loans", Value = "Loans" },
+        new SelectListItem { Text = "Various", Value = "Various" },
+        new SelectListItem { Text = "Rent", Value = "Rent" },
+        new SelectListItem { Text = "Gambling", Value = "Gambling" },
+        new SelectListItem { Text = "Payment", Value = "Payment" }
+        }, "Value", "Text"), new { @class = "form-control" })
         </div>
 
         <hr />
