@@ -20,6 +20,39 @@ namespace Data.Base
             _httpClient = httpClient;
         }
 
+        public async Task<IActionResult> GetToApi(string controllerName, object model, string token = "")
+        {
+
+            try
+            {
+                var client = _httpClient.CreateClient("useApi");
+
+                if (token != "")
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
+
+                }
+
+                var response = await client.GetAsync(controllerName);
+                var content = await response.Content.ReadAsStringAsync();
+
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok(content);
+                }
+
+
+                return BadRequest(content);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+
+        }
+
         public async Task<IActionResult> DeleteToApi(string controllerName, object model, string token = "")
         {
 

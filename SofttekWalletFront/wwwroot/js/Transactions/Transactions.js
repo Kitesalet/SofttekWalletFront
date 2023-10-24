@@ -24,7 +24,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
                         return data;
                     }
                 },
-                { data: 'amount', title: 'Origin Amount' },
+                { data: 'amount', title: 'Source Account Amount' },
                 {
                     data: 'sourceAccount.cbu',
                     title: 'Source CBU(If Fiduciary)',
@@ -99,7 +99,7 @@ function FilterByAccount(account) {
                         return data;
                     }
                 },
-                { data: 'amount', title: 'Origin Amount' },
+                { data: 'amount', title: 'Source Account Amount' },
                 {
                     data: 'sourceAccount.cbu',
                     title: 'Source CBU(If Fiduciary)',
