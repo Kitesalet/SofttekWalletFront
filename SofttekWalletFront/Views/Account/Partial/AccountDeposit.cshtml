@@ -52,7 +52,7 @@
                             <label class="col-md-4 form-control-label">Money to Deposit</label>
                         </div>
                         <div class="col-md-6">
-                            @Html.EditorFor(x => x.Balance, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.EditorFor(x => x.Balance, new { htmlAttributes = new { @class = "form-control", @min = "0" ,@required = "required" } })
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,7 @@
 
     <hr />
 
-    @using (Html.BeginForm("BeginTransaction", "Transfer", FormMethod.Post))
+    @using (Html.BeginForm("BeginTransaction", "Transfer", FormMethod.Post, new { id = "transferForm" }))
     {
         <div class="form-group">
             Origin Account
@@ -31,7 +31,7 @@
 
         <div class="form-group">
             @Html.LabelFor(x => x.Amount)
-            @Html.EditorFor(x => x.Amount, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.EditorFor(x => x.Amount, new { htmlAttributes = new { @class = "form-control", min = "0", required = "required" } })
         </div>
 
         <hr />
@@ -43,7 +43,7 @@
 
         <hr />
 
-        <button type="submit" class="btn btn-success" id="transferButton">Accept Transaction</button>
+        <button type="button" class="btn btn-success form-control" id="submitButton">Accept Transfer</button>
     }
     
 

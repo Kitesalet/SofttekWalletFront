@@ -40,9 +40,39 @@ function FillDestinationDropdown() {
     )
 }
 
-function TransferSubmitHabdler() {
+var button = document.getElementById("submitButton");
+button.addEventListener("click", TransferHandler)
 
+function TransferHandler() {
+    Swal.fire({
+        title: 'You will make a transfer!',
+        text: 'Do you want to proceed with the transfer?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var form = document.getElementById('transferForm');
+
+            $.ajax({
+                type: 'POST',
+                url: 'BeginTransaction',
+                data: $(form).serialize(),
+                success: function (response) {
+                    Swal.fire('Success', response, 'success');
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                },
+                error: function (response) {
+                    Swal.fire('Error', response.responseText, 'error');
+                }
+            });
+        }
+    });
 }
+
 function FillOriginDropdown() {
     $.ajax({
         url: `https://localhost:7243/api/accounts/${id}`,

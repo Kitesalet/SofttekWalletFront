@@ -1,6 +1,8 @@
 ﻿using Data.Base;
 using Data.DTO.Transfer;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace SofttekWalletFront.Controllers
 {
@@ -22,7 +24,7 @@ namespace SofttekWalletFront.Controllers
             return View();
         }
 
-        public IActionResult BeginTransaction(TransferDto dto)
+        public async Task<IActionResult> BeginTransaction(TransferDto dto)
         {
 
             string token = HttpContext.Session.GetString("Token");
@@ -30,9 +32,22 @@ namespace SofttekWalletFront.Controllers
 
             BaseApi api = new BaseApi(_httpClient);
 
-            var transfer = api.PutToApi("account/transfer", dto, token);
+            var response = await api.PutToApi("account/transfer", dto, token);
 
-            return RedirectToAction("Index");
+            var objectResponse = response as ObjectResult;
+
+            if(objectResponse.StatusCode == (int)HttpStatusCode.OK)
+            {
+
+                var jsonObject = JsonConvert.DeserializeObject<ApiResponse>(objectResponse.Value.ToString());
+                return Ok(jsonObject.Data);
+            }
+            else
+            {
+                var jsonObject = JsonConvert.DeserializeObject<ApiErrorResponse>(objectResponse.Value.ToString());
+                return BadRequest(jsonObject.Errors[0].Error);
+            }
+
 
         }
     }
