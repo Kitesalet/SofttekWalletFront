@@ -24,20 +24,10 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
                         return data;
                     }
                 },
-                { data: 'amount', title: 'Amount' },
+                { data: 'amount', title: 'Origin Amount' },
                 {
                     data: 'sourceAccount.cbu',
                     title: 'Source CBU(If Fiduciary)',
-                    render: function (data, type) {
-                        if (type === 'display' && data === 0) {
-                            return '-';
-                        }
-                        return data;
-                    }
-                },
-                {
-                    data: 'destinationAccount.cbu',
-                    title: 'Destination CBU (If Fiduciary)',
                     render: function (data, type) {
                         if (type === 'display' && data === 0) {
                             return '-';
@@ -50,6 +40,16 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
                     title: 'Source UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
+                            return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'destinationAccount.cbu',
+                    title: 'Destination CBU (If Fiduciary)',
+                    render: function (data, type) {
+                        if (type === 'display' && data === 0) {
                             return '-';
                         }
                         return data;
@@ -99,7 +99,7 @@ function FilterByAccount(account) {
                         return data;
                     }
                 },
-                { data: 'amount', title: 'Amount' },
+                { data: 'amount', title: 'Origin Amount' },
                 {
                     data: 'sourceAccount.cbu',
                     title: 'Source CBU(If Fiduciary)',
@@ -111,21 +111,21 @@ function FilterByAccount(account) {
                     }
                 },
                 {
-                    data: 'destinationAccount.cbu',
-                    title: 'Destination CBU (If Fiduciary)',
-                    render: function (data, type) {
-                        if (type === 'display' && data === 0) {
-                            return '-'; 
-                        }
-                        return data;
-                    }
-                },
-                {
                     data: 'sourceAccount.uuid',
                     title: 'Source UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';
+                        }
+                        return data;
+                    }
+                },
+                {
+                    data: 'destinationAccount.cbu',
+                    title: 'Destination CBU (If Fiduciary)',
+                    render: function (data, type) {
+                        if (type === 'display' && data === 0) {
+                            return '-'; 
                         }
                         return data;
                     }
