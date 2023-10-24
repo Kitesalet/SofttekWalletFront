@@ -12,7 +12,6 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
             dataSrc: "data",
             headers: { "Authorization": "Bearer " + token }
         },
-        columns: [
             columns: [
                 { data: 'type', title: 'Type' },
                 {
@@ -48,7 +47,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
                 },
                 {
                     data: 'sourceAccount.uuid',
-                    title: 'Source CBU(If Fiduciary)',
+                    title: 'Source UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';
@@ -58,7 +57,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
                 },
                 {
                     data: 'destinationAccount.uuid',
-                    title: 'Destination CBU (If Fiduciary)',
+                    title: 'Destination UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';
@@ -123,7 +122,7 @@ function FilterByAccount(account) {
                 },
                 {
                     data: 'sourceAccount.uuid',
-                    title: 'Source CBU(If Fiduciary)',
+                    title: 'Source UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';
@@ -133,7 +132,7 @@ function FilterByAccount(account) {
                 },
                 {
                     data: 'destinationAccount.uuid',
-                    title: 'Destination CBU (If Fiduciary)',
+                    title: 'Destination UUID',
                     render: function (data, type) {
                         if (type === 'display' && data === null) {
                             return '-';
