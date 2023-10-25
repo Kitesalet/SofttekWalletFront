@@ -85,7 +85,9 @@ namespace IntegradorSofttekImanolFront.Controllers
                 client.Email = "";
             }
 
-			var token = HttpContext.Session.GetString("Token");
+            client.Role = ClientRole.Base;
+
+            var token = HttpContext.Session.GetString("Token");
 			var baseApi = new BaseApi(_httpClient);
 			var response = await baseApi.PostToApi("client/register", client, token);
             var objResponse = response as ObjectResult;
@@ -97,7 +99,7 @@ namespace IntegradorSofttekImanolFront.Controllers
 				return Ok(jsonbject.Data);
 			}
 
-			var objResponseer = objResponse.Value.ToString();
+			var objResponser = objResponse.Value.ToString();
 			var jsonObject = JsonConvert.DeserializeObject<ApiErrorResponse>(objResponse.Value.ToString());
 
 			return BadRequest(jsonObject.Errors[0].Error);

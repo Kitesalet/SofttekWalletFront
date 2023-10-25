@@ -1,11 +1,13 @@
 ﻿using Data.Base;
 using Data.DTO.Transfer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
 
 namespace SofttekWalletFront.Controllers
 {
+    [Authorize]
     public class TransferController : Controller
     {
         private readonly IHttpClientFactory _httpClient;

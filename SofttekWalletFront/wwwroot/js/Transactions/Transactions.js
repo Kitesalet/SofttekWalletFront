@@ -1,5 +1,6 @@
 ﻿var token = localStorage.getItem('token');
 var id = localStorage.getItem('id');
+
 document.getElementById('transactionSelect').addEventListener('change', FilterAccountChange);
 
     var table = new DataTable('#transactions', {
@@ -8,7 +9,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
         pageLength: 10,
         ajax: {
 
-            url: `https://localhost:7243/api/transactions?page=1&units=999999999`,
+            url: `https://localhost:7243/api/transactions/account/${id}`,
             dataSrc: "data",
             headers: { "Authorization": "Bearer " + token }
         },
