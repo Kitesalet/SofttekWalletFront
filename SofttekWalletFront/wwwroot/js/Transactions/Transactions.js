@@ -9,7 +9,7 @@ document.getElementById('transactionSelect').addEventListener('change', FilterAc
         pageLength: 10,
         ajax: {
 
-            url: `https://localhost:7243/api/transactions/account/${id}`,
+            url: `https://localhost:7243/api/transactions/client/${id}`,
             dataSrc: "data",
             headers: { "Authorization": "Bearer " + token }
         },

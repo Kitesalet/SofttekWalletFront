@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for account objects.
+    /// </summary>
     public class AccountViewModel
     {
         public int Id { get; set; }
