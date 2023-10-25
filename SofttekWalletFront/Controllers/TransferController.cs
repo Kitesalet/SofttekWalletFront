@@ -1,11 +1,13 @@
 ﻿using Data.Base;
 using Data.DTO.Transfer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net;
 
 namespace SofttekWalletFront.Controllers
 {
+    [Authorize]
     public class TransferController : Controller
     {
         private readonly IHttpClientFactory _httpClient;
@@ -24,6 +26,11 @@ namespace SofttekWalletFront.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Starts the money transfer between two accounts.
+        /// </summary>
+        /// <param name="dto">A TransferDto instantiation that has the information about both accounts, as well as the balance to transfer.</param>
+        /// <returns>An IActionResult object with the text information regarding the HTTP request.</returns>
         public async Task<IActionResult> BeginTransaction(TransferDto dto)
         {
 

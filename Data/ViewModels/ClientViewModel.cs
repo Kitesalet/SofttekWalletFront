@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for client objects.
+    /// </summary>
     public class ClientViewModel
     {
         public int Id { get; set; }

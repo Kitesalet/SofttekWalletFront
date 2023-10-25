@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data.DTO.Transfer;
 
 namespace Data.DTO.Client
 {
@@ -13,8 +14,8 @@ namespace Data.DTO.Client
         public int Id { get; set; }
         public string Name { get; set; }
 
+        public ClientRole Role { get;set; }
         public string Email { get; set; }
-
         public string Password { get; set; }
 
 

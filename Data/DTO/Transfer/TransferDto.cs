@@ -11,7 +11,7 @@ namespace Data.DTO.Transfer
         public decimal Amount { get; set; }
         public int DestinationAccountId { get; set; }
         public int OriginAccountId { get; set; }
-        public string Concept { get; set; }
+        public TransactionConcept Concept { get; set; }
 
     }
 }

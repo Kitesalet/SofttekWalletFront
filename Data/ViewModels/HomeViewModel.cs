@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Data.ViewModels
 {
+    /// <summary>
+    /// The ViewModel for Home.
+    /// </summary>
     public class HomeViewModel
     {
 

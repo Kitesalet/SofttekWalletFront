@@ -123,6 +123,7 @@ namespace IntegradorSofttekImanolFront.Controllers
         /// <returns>Redirects to the client index.</returns>
         public IActionResult CreateClient(ClientDto client)
         {
+            client.Role = ClientRole.Base;
             var token = HttpContext.Session.GetString("Token");
             var baseApi = new BaseApi(_httpClient);
             var usuarios = baseApi.PostToApi("clients/register", client, token);

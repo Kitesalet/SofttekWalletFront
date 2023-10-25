@@ -147,7 +147,7 @@ function DeleteAccount(data) {
                     }, 1000);
                 },
                 error: function (response) {
-                    Swal.fire('Error', response , 'error');
+                    Swal.fire('Error', response.responseText , 'error');
                 }
             });
         } else {

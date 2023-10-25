@@ -56,10 +56,10 @@ namespace SofttekWalletFront.Controllers
  
 
         /// <summary>
-        /// Displays a partial view for adding or updating a Account.
+        /// Displays a partial view that shows the information of the account.
         /// </summary>
         /// <param name="account">AccountDto</param>
-        /// <returns>A partial view for adding or updating a Account.</returns>
+        /// <returns>A partial view that shows the information of the account.</returns>
         public IActionResult AccountAddPartial(AccountDto account)
         {
 
@@ -80,6 +80,12 @@ namespace SofttekWalletFront.Controllers
            
         }
 
+
+        /// <summary>
+        /// Displays a partial view for depositing money to an Account.
+        /// </summary>
+        /// <param name="account">AccountDto</param>
+        /// <returns>A partial view for depositing money to an Account.</returns>
         public IActionResult DepositPartial(AccountDto account)
         {
 
@@ -96,6 +102,11 @@ namespace SofttekWalletFront.Controllers
 
         }
 
+        /// <summary>
+        ///  Makes a deposit to the selected account in the DTO
+        /// </summary>
+        /// <param name="account">An AccountDto instantiation that has the data and the ammount to deposit</param>
+        /// <returns>Redirects to the Account index.</returns>
         public async Task<IActionResult> AccountDeposit(AccountDto account)
         {
 
@@ -112,6 +123,11 @@ namespace SofttekWalletFront.Controllers
 
         }
 
+        /// <summary>
+        /// Displays a partial view for withdrawing money from an Account.
+        /// </summary>
+        /// <param name="account">AccountDto</param>
+        /// <returns>A partial view for withdrawing money from an Account.</returns>
         public IActionResult ExtractPartial(AccountDto account)
         {
 
@@ -129,6 +145,11 @@ namespace SofttekWalletFront.Controllers
 
         }
 
+        /// <summary>
+        ///  Makes a deposit to the selected account in the DTO.
+        /// </summary>
+        /// <param name="account">An AccountDto instantiation that has the data and the ammount to extract.</param>
+        /// <returns>Redirects to the Account index.</returns>
         public async Task<IActionResult> AccountExtract(AccountDto account)
         {
 
@@ -203,7 +224,11 @@ namespace SofttekWalletFront.Controllers
         }
 
 
-
+        /// <summary>
+        /// Facilitates the json deserialization into an object for it to give a response.
+        /// </summary>
+        /// <param name="objResponse">An ObjectResult with data regarding to the HTTP request.</param>
+        /// <returns>An IActionResult object with the text data in the response value.</returns>
         public IActionResult CreateResult(ObjectResult objResponse)
         {
             

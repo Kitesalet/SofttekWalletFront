@@ -7,31 +7,34 @@ using System.Threading.Tasks;
 
 namespace Data.Base
 {
+    /// <summary>
+    /// Represents an API error response, providing information about the error.
+    /// </summary>
     public class ApiErrorResponse
     {
 
         /// <summary>
-        /// Gets or sets the HTTP status code associated with the error.
+        /// The HTTP status code associated with the error.
         /// </summary>
         public HttpStatusCode StatusCode { get; set; }
 
         /// <summary>
-        /// Gets or sets a list of error details.
+        /// The list of error details.
         /// </summary>
         public List<ResponseError>? Errors { get; set; }
 
         /// <summary>
-        /// This class instantiates an individual error within an API error response.
+        /// This class instantiates an individual error in an API error response.
         /// </summary>
         public class ResponseError
         {
             /// <summary>
-            /// Gets or sets the error message.
+            /// The error message.
             /// </summary>
             public string? Error { get; set; }
 
             /// <summary>
-            /// Gets or sets additional data.
+            /// The additional data.
             /// </summary>
             public string? Data { get; set; }
         }
